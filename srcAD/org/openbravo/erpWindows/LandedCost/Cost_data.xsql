@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SqlClass id="class" name="CostData" package="org.openbravo.erpWindows.LandedCost">
+  <SqlClassComment>WAD Generated class</SqlClassComment>
+
+  <SqlMethod name="selectEdit" type="preparedStatement" return="multiple">
+    <SqlMethodComment>Select for edit</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT to_char(M_LC_Cost.Created, ?) as created, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_LC_Cost.CreatedBy) as CreatedByR, 
+        to_char(M_LC_Cost.Updated, ?) as updated, 
+        to_char(M_LC_Cost.Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp,  
+        M_LC_Cost.UpdatedBy, 
+        (SELECT NAME FROM AD_USER u WHERE AD_USER_ID = M_LC_Cost.UpdatedBy) as UpdatedByR,
+        M_LC_Cost.Line, 
+M_LC_Cost.AD_Org_ID, 
+M_LC_Cost.M_Landedcost_ID, 
+M_LC_Cost.C_Doctype_ID, 
+(CASE WHEN M_LC_Cost.C_Doctype_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR((CASE WHEN tableTRL1.Name IS NULL THEN TO_CHAR(table1.Name) ELSE TO_CHAR(tableTRL1.Name) END)), ''))),'') ) END) AS C_Doctype_IDR, 
+M_LC_Cost.M_Lc_Type_ID, 
+(CASE WHEN M_LC_Cost.M_Lc_Type_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table3.Name), ''))),'') ) END) AS M_Lc_Type_IDR, 
+M_LC_Cost.Dateacct, 
+M_LC_Cost.C_Invoiceline_ID, 
+M_LC_Cost.Amount, 
+M_LC_Cost.C_Currency_ID, 
+(CASE WHEN M_LC_Cost.C_Currency_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table4.ISO_Code), ''))),'') ) END) AS C_Currency_IDR, 
+M_LC_Cost.M_Lc_Distribution_Alg_ID, 
+(CASE WHEN M_LC_Cost.M_Lc_Distribution_Alg_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table5.Name), ''))),'') ) END) AS M_Lc_Distribution_Alg_IDR, 
+M_LC_Cost.Description, 
+M_LC_Cost.M_Inout_ID, 
+(CASE WHEN M_LC_Cost.M_Inout_ID IS NULL THEN '' ELSE  (COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table6.DocumentNo), ''))),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(table6.MovementDate, 'DD-MM-YYYY')),'')  || ' - ' || COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table7.Name), ''))),'') ) END) AS M_Inout_IDR, 
+M_LC_Cost.Matching_Amt, 
+COALESCE(M_LC_Cost.IsMatched, 'N') AS IsMatched, 
+M_LC_Cost.Matching_Costadjustment_ID, 
+(CASE WHEN M_LC_Cost.Matching_Costadjustment_ID IS NULL THEN '' ELSE  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table8.Documentno), ''))),'') ) END) AS Matching_Costadjustment_IDR, 
+COALESCE(M_LC_Cost.IsMatchingAdjusted, 'N') AS IsMatchingAdjusted, 
+COALESCE(M_LC_Cost.Isactive, 'N') AS Isactive, 
+M_LC_Cost.Processing, 
+M_LC_Cost.Posted, 
+list1.name as Posted_BTN, 
+M_LC_Cost.Process_Matching, 
+M_LC_Cost.Cancel_Matching, 
+COALESCE(M_LC_Cost.Processed, 'N') AS Processed, 
+M_LC_Cost.AD_Client_ID, 
+M_LC_Cost.M_LC_Cost_ID, 
+ 
+        ? AS LANGUAGE 
+        FROM M_LC_Cost left join (select C_Doctype_ID, Name from C_Doctype) table1 on (M_LC_Cost.C_Doctype_ID = table1.C_Doctype_ID) left join (select C_DocType_ID,AD_Language, Name from C_DocType_TRL) tableTRL1 on (table1.C_DocType_ID = tableTRL1.C_DocType_ID and tableTRL1.AD_Language = ?)  left join (select M_Lc_Type_ID, Name from M_Lc_Type) table3 on (M_LC_Cost.M_Lc_Type_ID = table3.M_Lc_Type_ID) left join (select C_Currency_ID, ISO_Code from C_Currency) table4 on (M_LC_Cost.C_Currency_ID = table4.C_Currency_ID) left join (select M_Lc_Distribution_Alg_ID, Name from M_Lc_Distribution_Alg) table5 on (M_LC_Cost.M_Lc_Distribution_Alg_ID = table5.M_Lc_Distribution_Alg_ID) left join (select M_Inout_ID, DocumentNo, MovementDate, C_BPartner_ID from M_Inout) table6 on (M_LC_Cost.M_Inout_ID = table6.M_Inout_ID) left join (select C_BPartner_ID, Name from C_BPartner) table7 on (table6.C_BPartner_ID = table7.C_BPartner_ID) left join (select M_CostAdjustment_ID, Documentno from M_CostAdjustment) table8 on (M_LC_Cost.Matching_Costadjustment_ID =  table8.M_CostAdjustment_ID) left join ad_ref_list_v list1 on (list1.ad_reference_id = '234' and list1.ad_language = ?  AND M_LC_Cost.Posted = TO_CHAR(list1.value))
+        WHERE 2=2 
+
+        AND 1=1 
+        AND M_LC_Cost.M_LC_Cost_ID = ? 
+        AND M_LC_Cost.AD_Client_ID IN ('1') 
+           AND M_LC_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="dateTimeFormat"></Parameter>
+    <Parameter name="dateTimeFormat"></Parameter>
+    
+    <Parameter name="paramLanguage"></Parameter>
+<Parameter name="paramLanguage"/>
+<Parameter name="paramLanguage"/>
+
+    <Parameter name="mLandedcostId" optional="true" after="AND 1=1 " id="paramKeyParent"> AND M_LC_Cost.M_Landedcost_ID = ? </Parameter>
+    <Parameter name="key"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_LC_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_LC_Cost.AD_Org_ID IN (" text="'1'"/>
+
+    <Field name="adUserClient" value="void"></Field>
+    <Field name="adOrgClient" value="void"></Field>
+    <Field name="createdby" value="void"></Field>
+    
+    <Field name="trBgcolor" value="void"></Field>
+    <Field name="totalCount" value="void"></Field>
+    <Field name="dateTimeFormat" value=""></Field>
+  </SqlMethod>
+  
+  
+
+  <SqlMethod name="set" type="constant" return="multiple">
+      <SqlMethodComment>Create a registry</SqlMethodComment>
+      <Sql></Sql>
+    <Parameter name="mLandedcostId" id="paramKeyParent"></Parameter>
+<Parameter name="mLcCostId"></Parameter><Parameter name="adClientId"></Parameter><Parameter name="adOrgId"></Parameter><Parameter name="isactive"></Parameter><Parameter name="createdby"></Parameter><Parameter name="createdbyr"></Parameter><Parameter name="updatedby"></Parameter><Parameter name="updatedbyr"></Parameter><Parameter name="mInoutId"></Parameter><Parameter name="mLcTypeId"></Parameter><Parameter name="amount"></Parameter><Parameter name="mLcDistributionAlgId"></Parameter><Parameter name="description"></Parameter><Parameter name="cCurrencyId"></Parameter><Parameter name="cInvoicelineId"></Parameter><Parameter name="ismatched"></Parameter><Parameter name="ismatchingadjusted"></Parameter><Parameter name="line"></Parameter><Parameter name="processMatching"></Parameter><Parameter name="matchingAmt"></Parameter><Parameter name="cancelMatching"></Parameter><Parameter name="matchingCostadjustmentId"></Parameter><Parameter name="cDoctypeId"></Parameter><Parameter name="dateacct"></Parameter><Parameter name="posted"></Parameter><Parameter name="postedBtn"></Parameter><Parameter name="processing"></Parameter><Parameter name="processed"></Parameter>
+   </SqlMethod>
+
+
+   <SqlMethod name="selectAux27408C217279424DAFD659F7605D09CA" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT PROCESSED FROM M_LANDEDCOST WHERE M_LANDEDCOST_ID = ? 
+    ]]></Sql>
+
+<Parameter name="M_LANDEDCOST_ID"/>
+  </SqlMethod>
+
+
+
+
+
+   <SqlMethod name="selectDef00568254CB648733E050007F01000513_0" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))), '') ) as Createdby FROM AD_User left join (select AD_User_ID, Name from AD_User) table2 on (AD_User.AD_User_ID = table2.AD_User_ID) WHERE AD_User.isActive='Y' AND AD_User.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="CreatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef00568254CB668733E050007F01000513_1" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT  ( COALESCE(TO_CHAR(TO_CHAR(COALESCE(TO_CHAR(table2.Name), ''))), '') ) as Updatedby FROM AD_User left join (select AD_User_ID, Name from AD_User) table2 on (AD_User.AD_User_ID = table2.AD_User_ID) WHERE AD_User.isActive='Y' AND AD_User.AD_User_ID = ?  
+    ]]></Sql>
+<Parameter name="UpdatedbyR"/>
+  </SqlMethod>
+
+   <SqlMethod name="selectDef0227873A968BE6FBE050007F01005124" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for auxiliar field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT COALESCE(MAX(LINE),0)+10 AS DefaultValue FROM M_LC_COST WHERE (m_landedcost_id is not null and m_landedcost_id =?)    or (m_landedcost_id is null and m_inout_id = ?) 
+    ]]></Sql>
+
+<Parameter name="m_landedcost_id"/>
+<Parameter name="m_inout_id"/>
+  </SqlMethod>
+
+
+
+  <SqlMethod name="selectParentID" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>return the parent ID</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT M_LC_Cost.M_Landedcost_ID AS NAME
+        FROM M_LC_Cost
+        WHERE M_LC_Cost.M_LC_Cost_ID = ?
+    ]]></Sql>
+    <Parameter name="key"></Parameter>
+  </SqlMethod>
+
+   <SqlMethod name="selectParent" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(table1.Referencedate, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Documentno), ''))) AS NAME FROM M_LandedCost left join (select M_Landedcost_ID, Referencedate, Documentno from M_Landedcost) table1 on (M_LandedCost.M_Landedcost_ID = table1.M_Landedcost_ID) WHERE M_LandedCost.M_Landedcost_ID = ?  
+    ]]></Sql>
+<Parameter name="mLandedcostId"/>
+
+  </SqlMethod>
+
+
+
+
+   <SqlMethod name="selectParentTrl" type="preparedStatement" return="String" default="">
+    <SqlMethodComment>Select for parent field</SqlMethodComment>
+    <Sql><![CDATA[
+        SELECT (TO_CHAR(table1.Referencedate, 'DD-MM-YYYY') || ' - ' || TO_CHAR(COALESCE(TO_CHAR(table1.Documentno), ''))) AS NAME FROM M_LandedCost left join (select M_Landedcost_ID, Referencedate, Documentno from M_Landedcost) table1 on (M_LandedCost.M_Landedcost_ID = table1.M_Landedcost_ID) WHERE M_LandedCost.M_Landedcost_ID = ?  
+    ]]></Sql>
+<Parameter name="mLandedcostId"/>
+
+  </SqlMethod>
+
+
+
+
+
+
+
+
+  <SqlMethod name="update" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        UPDATE M_LC_Cost
+        SET Line = TO_NUMBER(?) , AD_Org_ID = (?) , M_Landedcost_ID = (?) , C_Doctype_ID = (?) , M_Lc_Type_ID = (?) , Dateacct = TO_DATE(?) , C_Invoiceline_ID = (?) , Amount = TO_NUMBER(?) , C_Currency_ID = (?) , M_Lc_Distribution_Alg_ID = (?) , Description = (?) , M_Inout_ID = (?) , Matching_Amt = TO_NUMBER(?) , IsMatched = (?) , Matching_Costadjustment_ID = (?) , IsMatchingAdjusted = (?) , Isactive = (?) , Processing = (?) , Posted = (?) , Process_Matching = (?) , Cancel_Matching = (?) , Processed = (?) , AD_Client_ID = (?) , M_LC_Cost_ID = (?) , updated = now(), updatedby = ? 
+        WHERE M_LC_Cost.M_LC_Cost_ID = ? 
+                 AND M_LC_Cost.M_Landedcost_ID = ? 
+        AND M_LC_Cost.AD_Client_ID IN ('1') 
+        AND M_LC_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="line"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mLandedcostId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="mLcTypeId"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="cInvoicelineId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mLcDistributionAlgId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="mInoutId"></Parameter> <Parameter name="matchingAmt"></Parameter> <Parameter name="ismatched"></Parameter> <Parameter name="matchingCostadjustmentId"></Parameter> <Parameter name="ismatchingadjusted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="processMatching"></Parameter> <Parameter name="cancelMatching"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="mLcCostId"></Parameter> 
+    <Parameter name="updatedby"></Parameter>
+    <Parameter id="paramKey" name="mLcCostId"></Parameter>
+    
+    <Parameter name="mLandedcostId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_LC_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_LC_Cost.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="insert" type="preparedStatement" return="rowCount" static="false" connection="true">
+    <Sql><![CDATA[
+        INSERT INTO M_LC_Cost 
+        (Line, AD_Org_ID, M_Landedcost_ID, C_Doctype_ID, M_Lc_Type_ID, Dateacct, C_Invoiceline_ID, Amount, C_Currency_ID, M_Lc_Distribution_Alg_ID, Description, M_Inout_ID, Matching_Amt, IsMatched, Matching_Costadjustment_ID, IsMatchingAdjusted, Isactive, Processing, Posted, Process_Matching, Cancel_Matching, Processed, AD_Client_ID, M_LC_Cost_ID, created, createdby, updated, updatedBy)
+        VALUES (TO_NUMBER(?), (?), (?), (?), (?), TO_DATE(?), (?), TO_NUMBER(?), (?), (?), (?), (?), TO_NUMBER(?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), (?), now(), ?, now(), ?)
+    ]]></Sql>
+    <Parameter name="line"></Parameter> <Parameter name="adOrgId"></Parameter> <Parameter name="mLandedcostId"></Parameter> <Parameter name="cDoctypeId"></Parameter> <Parameter name="mLcTypeId"></Parameter> <Parameter name="dateacct"></Parameter> <Parameter name="cInvoicelineId"></Parameter> <Parameter name="amount"></Parameter> <Parameter name="cCurrencyId"></Parameter> <Parameter name="mLcDistributionAlgId"></Parameter> <Parameter name="description"></Parameter> <Parameter name="mInoutId"></Parameter> <Parameter name="matchingAmt"></Parameter> <Parameter name="ismatched"></Parameter> <Parameter name="matchingCostadjustmentId"></Parameter> <Parameter name="ismatchingadjusted"></Parameter> <Parameter name="isactive"></Parameter> <Parameter name="processing"></Parameter> <Parameter name="posted"></Parameter> <Parameter name="processMatching"></Parameter> <Parameter name="cancelMatching"></Parameter> <Parameter name="processed"></Parameter> <Parameter name="adClientId"></Parameter> <Parameter name="mLcCostId"></Parameter> 
+    <Parameter name="createdby"></Parameter>
+    <Parameter name="updatedby"></Parameter>
+  </SqlMethod>
+
+  <SqlMethod name="delete" type="preparedStatement" return="rowCount">
+    <Sql><![CDATA[
+        DELETE FROM M_LC_Cost
+        WHERE M_LC_Cost.M_LC_Cost_ID = ? 
+                 AND M_LC_Cost.M_Landedcost_ID = ? 
+        AND M_LC_Cost.AD_Client_ID IN ('1') 
+        AND M_LC_Cost.AD_Org_ID IN ('1') 
+    ]]></Sql>
+    <Parameter name="param1"></Parameter>
+        <Parameter name="mLandedcostId" id="paramKeyParent"></Parameter>
+        <Parameter name="adUserClient" type="replace" optional="true" after="M_LC_Cost.AD_Client_ID IN (" text="'1'"/>
+        <Parameter name="adOrgClient" type="replace" optional="true" after="M_LC_Cost.AD_Org_ID IN (" text="'1'"/>
+  </SqlMethod>
+
+  <SqlMethod name="selectOrg" type="preparedStatement" return="string">
+    <SqlMethodComment>Select for relation</SqlMethodComment>
+    <Sql><![CDATA[ 
+        SELECT AD_ORG_ID
+          FROM M_LC_Cost
+         WHERE M_LC_Cost.M_LC_Cost_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+  
+  <SqlMethod name="getCurrentDBTimestamp" type="preparedStatement" return="string">
+    <Sql><![CDATA[ 
+        SELECT to_char(Updated, 'YYYYMMDDHH24MISS') as Updated_Time_Stamp
+          FROM M_LC_Cost
+         WHERE M_LC_Cost.M_LC_Cost_ID = ? 
+    ]]></Sql>
+    <Parameter name="id"></Parameter>
+  </SqlMethod>
+</SqlClass>
